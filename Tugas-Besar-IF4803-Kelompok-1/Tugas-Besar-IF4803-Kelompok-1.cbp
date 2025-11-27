@@ -32,8 +32,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="header.h" />
+		<Unit filename="customer.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="menu.h" />
+		<Unit filename="relation.h" />
 		<Unit filename="sources.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
