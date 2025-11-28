@@ -5,7 +5,9 @@
 using namespace std;
 
 typedef struct elmMenu *adrMenu;
-struct infotype_menu{
+typedef struct menu infotypeP;
+
+struct menu{
     int id;
     int quantity;
     int price;
@@ -13,14 +15,26 @@ struct infotype_menu{
 };
 
 struct elmMenu {
-    infotype_menu info;
+    infotypeP info;
     adrMenu next;
     adrCustomer firstChild;
 };
 
-struct ListMenu {
+struct listParent {
     adrMenu first;
 };
+
+
+void createListParent(listParent &L);
+adrMenu createElementParent(infotypeP x);
+void insertFirstParent(listParent &L, adrMenu p);
+void insertLastParent(listParent &L, adrMenu p);
+void insertAfterParent(listParent &L, adrMenu p, adrMenu prec);
+void deleteFirstParent(listParent &L, adrMenu &p);
+void deleteLastParent(listParent &L, adrMenu &p);
+void deleteAfterParent(listParent &L, adrMenu &p, adrMenu prec);
+adrMenu findElementParent(listParent &L, infotypeP x);
+void viewParent(listParent &L);
 
 
 #endif // MENU_H_INCLUDED

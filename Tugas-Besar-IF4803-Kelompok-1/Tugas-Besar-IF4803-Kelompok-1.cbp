@@ -33,6 +33,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="customer.h" />
+		<Unit filename="customer_103012430041.cpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="menu.h" />
 		<Unit filename="relation.h" />
