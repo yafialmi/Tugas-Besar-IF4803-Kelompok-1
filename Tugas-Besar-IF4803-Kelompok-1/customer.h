@@ -13,7 +13,6 @@ struct infotype_customer{
 struct elmCustomer {
     infotype_customer info;
     adrCustomer next;
-    adrCustomer netClass;
 };
 
 #endif // CUSTOMER_H_INCLUDED
