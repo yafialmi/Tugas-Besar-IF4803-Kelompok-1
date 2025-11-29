@@ -8,6 +8,7 @@ typedef struct customer infotypeC;
 
 struct customer{
     int id;
+    int balance;
     string name;
 };
 
