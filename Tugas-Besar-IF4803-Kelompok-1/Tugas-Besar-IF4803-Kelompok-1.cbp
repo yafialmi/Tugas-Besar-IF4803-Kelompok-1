@@ -36,6 +36,7 @@
 		<Unit filename="customer_103012430041.cpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="menu.h" />
+		<Unit filename="menu_103012400011.cpp" />
 		<Unit filename="relation.h" />
 		<Unit filename="sources.cpp" />
 		<Extensions>
