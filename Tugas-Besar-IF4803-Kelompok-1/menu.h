@@ -17,11 +17,13 @@ struct menu{
 struct elmMenu {
     infotypeP info;
     adrMenu next;
+    adrMenu prev;
     adrCustomer firstChild;
 };
 
 struct listParent {
     adrMenu first;
+    adrMenu last;
 };
 
 

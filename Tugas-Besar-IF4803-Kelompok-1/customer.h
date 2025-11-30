@@ -15,10 +15,12 @@ struct customer{
 struct elmCustomer {
     infotypeC info;
     adrCustomer next;
+    adrCustomer prev;
 };
 
 struct listChild {
     adrCustomer first;
+    adrCustomer last;
 };
 
 void createListChild(listChild &L);
