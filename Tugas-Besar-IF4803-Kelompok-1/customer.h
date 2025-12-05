@@ -18,21 +18,22 @@ struct elmCustomer {
     adrCustomer prev;
 };
 
-struct listChild {
+struct listCustomer {
     adrCustomer first;
     adrCustomer last;
 };
 
-void createListChild(listChild &L);
-adrCustomer createElementChild(infotypeC x);
-void insertFirstChild(listChild &L, adrCustomer p);
-void insertLastChild(listChild &L, adrCustomer p);
-void insertAfterChild(listChild &L, adrCustomer p, adrCustomer prec);
-void deleteFirstChild(listChild &L, adrCustomer &p);
-void deleteLastChild(listChild &L, adrCustomer &p);
-void deleteAfterChild(listChild &L, adrCustomer &p, adrCustomer prec);
-adrCustomer findElementChild(listChild &L, infotypeC x);
-void viewChild(listChild &L);
+bool checkEmptyCustomer(listCustomer L);
+void createListCustomer(listCustomer &L);
+adrCustomer createElementCustomer(infotypeC x);
+void insertFirstCustomer(listCustomer &L, adrCustomer p);
+void insertLastCustomer(listCustomer &L, adrCustomer p);
+void insertAfterCustomer(listCustomer &L, adrCustomer p, adrCustomer prec);
+void deleteFirstCustomer(listCustomer &L, adrCustomer &p);
+void deleteLastCustomer(listCustomer &L, adrCustomer &p);
+void deleteAfterCustomer(listCustomer &L, adrCustomer &p, adrCustomer prec);
+adrCustomer findElementCustomer(listCustomer &L, infotypeC x);
+void viewCustomer(listCustomer &L);
 
 
 #endif // CUSTOMER_H_INCLUDED
