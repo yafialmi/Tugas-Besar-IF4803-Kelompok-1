@@ -17,7 +17,7 @@ struct menu{
 struct elmMenu {
     infotypeP info;
     adrMenu next;
-    listCustomer firstCustomer;
+    adrCustomer firstCustomer;
 };
 
 struct listMenu {
