@@ -35,6 +35,8 @@ void deleteLastMenu(listMenu &L, adrMenu &p);
 void deleteAfterMenu(listMenu &L, adrMenu &p, adrMenu &Mrec);
 adrMenu findElementMenu(listMenu &L, infotypeP x);
 void viewMenu(listMenu &L);
+adrMenu allocate(infotypeP x);
+void reduceStock(listMenu &L, string id);
 
 
 #endif // MENU_H_INCLUDED
