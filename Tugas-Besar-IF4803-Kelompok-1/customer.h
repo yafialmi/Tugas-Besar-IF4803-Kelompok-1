@@ -1,14 +1,16 @@
 #ifndef CUSTOMER_H_INCLUDED
 #define CUSTOMER_H_INCLUDED
 #include <iostream>
+#include "menu.h"
 using namespace std;
 
 typedef struct elmCustomer *adrCustomer;
 typedef struct customer infotypeC;
 
 struct customer{
-    int id;
+    string id;
     int balance;
+    bool vip = false;
     string name;
 };
 
@@ -18,22 +20,18 @@ struct elmCustomer {
     adrCustomer prev;
 };
 
-struct listCustomer {
-    adrCustomer first;
-    adrCustomer last;
-};
 
-bool checkEmptyCustomer(listCustomer L);
-void createListCustomer(listCustomer &L);
+bool checkEmptyCustomer(adrMenu M);
+void createListCustomer(adrMenu &M);
 adrCustomer createElementCustomer(infotypeC x);
-void insertFirstCustomer(listCustomer &L, adrCustomer p);
-void insertLastCustomer(listCustomer &L, adrCustomer p);
-void insertAfterCustomer(listCustomer &L, adrCustomer p, adrCustomer prec);
-void deleteFirstCustomer(listCustomer &L, adrCustomer &p);
-void deleteLastCustomer(listCustomer &L, adrCustomer &p);
-void deleteAfterCustomer(listCustomer &L, adrCustomer &p, adrCustomer prec);
-adrCustomer findElementCustomer(listCustomer &L, infotypeC x);
-void viewCustomer(listCustomer &L);
+void insertFirstCustomer(adrMenu&M, adrCustomer p);
+void insertLastCustomer(adrMenu &M, adrCustomer p);
+void insertAfterCustomer(adrMenu &M, adrCustomer p, adrCustomer prec);
+void deleteFirstCustomer(adrMenu &M, adrCustomer &p);
+void deleteLastCustomer(adrMenu &M, adrCustomer &p);
+void deleteAfterCustomer(adrMenu &M, adrCustomer &p, adrCustomer prec);
+adrCustomer findElementCustomer(adrMenu M, infotypeC x);
+void viewCustomer(adrMenu &M);
 
 
 #endif // CUSTOMER_H_INCLUDED

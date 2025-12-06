@@ -1,7 +1,7 @@
 #include "customer.h"
 
-void deleteFirstCustomer(listCustomer &L, adrCustomer &p){};
-void deleteLastCustomer(listCustomer &L, adrCustomer &p){};
-void deleteAfterCustomer(listCustomer &L, adrCustomer &p, adrCustomer prec){};
-adrCustomer findElementCustomer(listCustomer &L, infotypeC x){};
-void viewCustomer(listCustomer &L){};
+void deleteFirstCustomer(adrMenu &M, adrCustomer &p){};
+void deleteLastCustomer(adrMenu &M, adrCustomer &p){};
+void deleteAfterCustomer(adrMenu &M, adrCustomer &p, adrCustomer prec){};
+adrCustomer findElementCustomer(adrMenu &M, infotypeC x){};
+void viewCustomer(adrMenu &M){};

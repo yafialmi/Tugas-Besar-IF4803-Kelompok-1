@@ -18,7 +18,7 @@ adrMenu createElementMenu(infotypeP x){
     return p;
 };
 
-void insertFirstMenu(listMenu &L, adrMenu p){
+void insertFirstMenu(listMenu &L, adrMenu &p){
     if(checkEmptyMenu(L)){
         L.first = p;
     }else{
@@ -26,7 +26,7 @@ void insertFirstMenu(listMenu &L, adrMenu p){
         L.first = p;
     }
 };
-void insertLastMenu(listMenu &L, adrMenu p){
+void insertLastMenu(listMenu &L, adrMenu &p){
     if(checkEmptyMenu(L)){
         L.first = p;
     }else{
@@ -37,7 +37,7 @@ void insertLastMenu(listMenu &L, adrMenu p){
         temp->next = p;
     }
 };
-void insertAfterMenu(listMenu &L, adrMenu p, adrMenu prec){
+void insertAfterMenu(listMenu &L, adrMenu &p, adrMenu &prec){
     /* I.S: List tidak kosong, prec tidak berada di L.first ataupun L.last */
     p->next = prec->next;
     prec->next = p;
