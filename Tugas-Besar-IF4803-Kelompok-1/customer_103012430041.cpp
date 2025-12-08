@@ -81,7 +81,6 @@ void insertLastCustomer(adrMenu &M, adrCustomer p, int quantity)
         p->prev = temp;
         temp->next = p;
         transaction(M, p, quantity);
-        ;
     }
 };
 
@@ -98,6 +97,20 @@ void insertAfterCustomer(adrMenu &M, adrCustomer p, adrCustomer prec, int quanti
     prec->next = p;
     transaction(M, p, quantity);
 };
+
+void showVipCustomer (listMenu &M) {
+    adrMenu temp = M.first;
+    adrCustomer q = temp->firstCustomer;
+    while (temp != nullptr) {
+        while (q != nullptr) {
+            if (q->info.vip == true) {
+                cout << "Customer VIP: " << q->info.name << " (ID: " << q->info.id << ", Balance: " << q->info.balance << ")" << endl;
+            }
+            q = q->next;
+        }
+        temp = temp->next;
+    }
+}
 
 /* 
     I.S : List menu M terdefinisi. Customer belum masuk ke menu mana pun.

@@ -18,7 +18,7 @@ void deleteFirstMenu(listMenu &L, adrMenu &p){
 void deleteLastMenu(listMenu &L, adrMenu &p){
     adrMenu q;
     q = L.first;
-    for (q->next->next != nullptr){
+    while (q->next->next != nullptr){ 
         q = q->next;
     }
     p = q->next;
@@ -40,12 +40,12 @@ void deleteAfterMenu(listMenu &L, adrMenu &p, adrMenu &Mrec){
     I.S : ListMenu terdefinisi, infotype terdefinisi.
     F.S : Mengembalikan elemen yang memiliki infotype yang sama, jika tidak ada akan dikembalikan null.
 */
-adrMenu findElementMenu(listMenu &L, infotypeP x){
+adrMenu findElementMenu(listMenu &L, string idMenu){
     adrMenu q = L.first;
-    for (q->info != x && q->next != nullptr){
+    while (q->info.id != idMenu && q->next != nullptr){
         q = q->next;
     }
-    if (q->info == x){
+    if (q->info.id == idMenu){
         return q;
     }else{
         return nullptr;
@@ -58,10 +58,10 @@ adrMenu findElementMenu(listMenu &L, infotypeP x){
 */
 void viewMenu(listMenu &L){
     adrMenu q = L.first;
-    cout << "Menu: (ID, Name, Price, Stock)"
+    cout << "Menu: (ID, Name, Price, Stock)";
     cout << q->info.id << " " << q->info.name << " " << q->info.price << " " << q->info.stock << endl;
-    for (q->next != nullptr){
-        q = q->next
+    while (q->next != nullptr){
+        q = q->next;
         cout << q->info.id << " " << q->info.name << " " << q->info.price << " " << q->info.stock << endl;
     }
 }
@@ -78,15 +78,13 @@ adrMenu allocate(infotypeP x){
 
 /*
     I.S : ListMenu dan x terdefinisi.
-    F.S : Mengurangi stock dari menu yang memiliki ID sama dengan x
+    F.S : Menambahkan stock dari menu yang memiliki ID sama dengan x
 */
-void reduceStock(listMenu &L, string x){
-    adrMenu q = L.first;
-    for (q->info.id != x && q->next != nullptr){
-        q = q->next;
-    }
+void increaseStock(listMenu &L, string x){
+    adrMenu q;
+    q = findElementMenu(L, x);
     if (q->info.id == x){
-        q->info.stock = q->info.stock - 1;
+        q->info.stock = q->info.stock + 1;
     }
 }
 
