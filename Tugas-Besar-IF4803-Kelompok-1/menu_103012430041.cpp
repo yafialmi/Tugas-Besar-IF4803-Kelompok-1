@@ -1,5 +1,5 @@
 #include "menu.h"
-
+#include "menu_103012400011.cpp"
 /*
     I.S : List L terdefinisi.
     F.S : Mengembalikan true jika L.first == nullptr (list kosong), false jika list berisi elemen.
@@ -69,3 +69,23 @@ void insertAfterMenu(listMenu &L, adrMenu &p, adrMenu &prec){
     p->next = prec->next;
     prec->next = p;
 };
+
+/*
+    I.S : List L terdefinisi dan mungkin berisi beberapa elemen menu.
+    F.S : Menghapus semua elemen menu dari list L yang memiliki nilai stock sama dengan 0.
+          Elemen yang dihapus adalah yang berada setelah elemen saat ini dalam iterasi.
+    Parameter:
+        - listMenu &L : Referensi ke list menu yang akan diperiksa dan dihapus elemennya jika stock = 0.
+*/
+void deleteWhenStockZero(listMenu &L) {
+    adrMenu p = L.first;
+    adrMenu outputDelete;
+    while (p != nullptr) {
+        if(p->next != nullptr && p->next->info.stock == 0) {
+            deleteAfterMenu(L, outputDelete, p);
+        } else {
+            p = p->next;
+        }
+    };
+}
+

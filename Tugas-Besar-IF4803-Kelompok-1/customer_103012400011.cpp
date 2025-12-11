@@ -6,9 +6,9 @@
           Relasi next dan prev diperbarui sesuai dengan penghapusan elemen pertama.
 */
 void deleteFirstCustomer(adrMenu &M, adrCustomer &p){
-    p = adrMenu->firstCustomer;
-    adrMenu->firstCustomer = p->next;
-    adrMenu->firstCustomer->prev == nullptr;
+    p = M->firstCustomer;
+    M->firstCustomer = p->next;
+    M->firstCustomer->prev = nullptr;
 }
 
 /*
@@ -17,8 +17,8 @@ void deleteFirstCustomer(adrMenu &M, adrCustomer &p){
           Relasi next dan prev diperbarui sesuai dengan penghapusan elemen terakhir.
 */
 void deleteLastCustomer(adrMenu &M, adrCustomer &p){
-    adrCustomer q = adrMenu->firstCustomer;
-    for (q->next->next != nullptr){
+    adrCustomer q = M->firstCustomer;
+    while (q->next->next != nullptr){
         q = q->next;
     }
     p = q->next;
@@ -42,12 +42,12 @@ void deleteAfterCustomer(adrMenu &M, adrCustomer &p, adrCustomer prec){
     F.S : Mengembalikan pointer ke elemen customer dengan data yang sesuai dengan x (berdasarkan field yang relevan).
           Jika tidak ditemukan, mengembalikan nullptr.
 */
-adrCustomer findElementCustomer(adrMenu &M, infotypeC x){
-    adrCustomer q = adrMenu->firstCustomer;
-    for (q->info != x && q->next != nullptr){
-        q = q->next
+adrCustomer findElementCustomer(adrMenu &M, string id){
+    adrCustomer q = M->firstCustomer;
+    while (q->info.id != id && q->next != nullptr){
+        q = q->next;
     }
-    if (q->info == x){
+    if (q->info.id == id){
         return q;
     }else{
         return nullptr;
@@ -60,11 +60,11 @@ adrCustomer findElementCustomer(adrMenu &M, infotypeC x){
           Struktur list tidak berubah setelah pemanggilan fungsi ini.
 */
 void viewCustomer(adrMenu &M){
-    adrCustomer q = adrMenu->firstCustomer;
-    cout << "Customer dari menu " << adrMenu->info.name << " : (ID, Name, Balance, VIP)"
+    adrCustomer q = M->firstCustomer;
+    cout << "Customer dari menu " << M->info.name << " : (ID, Name, Balance, VIP)" << endl;
     cout << q->info.id << " " << q->info.name << " " << q->info.balance << " " << q->info.vip << endl;
-    for (q->next != nullptr){
-        q = q->next
+    while (q->next != nullptr){
+        q = q->next;
         cout << q->info.id << " " << q->info.name << " " << q->info.balance << " " << q->info.vip << endl;
     }
 }

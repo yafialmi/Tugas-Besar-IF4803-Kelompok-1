@@ -3,6 +3,18 @@
 #include "customer.h"
 
 /*
+    I.S : ListMenu terdefinisi.
+    F.S : Mengembalikan address dari elemen terakhir dalam list.
+*/
+adrMenu searchLast(listMenu &L) {
+    adrMenu temp = L.first;
+    while (temp->next !=  nullptr) {
+        temp = temp->next;
+    }
+    return temp;
+}
+
+/*
     I.S : ListMenu terdefinisi, p kosong.
     F.S : Memasukkan elemen pertama ke p, menghapus elemen pertama dari list.
 */
@@ -30,7 +42,9 @@ void deleteLastMenu(listMenu &L, adrMenu &p){
     F.S : Memasukkan elemen setelah Mrec ke p, menghapus elemen setelah Mrec dari list.
 */
 void deleteAfterMenu(listMenu &L, adrMenu &p, adrMenu &Mrec){
-    if (Mrec->next != nullptr){
+    if (Mrec == L.first) {
+        deleteFirstMenu(L, p);
+    }else if (Mrec->next != nullptr){
         p = Mrec->next;
         Mrec->next = Mrec->next->next;
     }
