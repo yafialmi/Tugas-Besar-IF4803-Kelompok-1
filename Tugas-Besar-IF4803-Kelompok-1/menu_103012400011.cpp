@@ -102,3 +102,20 @@ void increaseStock(listMenu &L, string x){
     }
 }
 
+/*
+    I.S : ListMenu dan M terdefinisi.
+    F.S : Memasukkan M kedalam ListMenu, disorting sesuai dengan abjadnya.
+*/
+void tambahMenu(listMenu &L, adrMenu &M){
+    if (L.first == nullptr || P->info.name < L.first->info.name) {
+        P->next = L.first;
+        L.first = P;
+    }else{
+        adrMenu Q = L.first;
+        while (Q->next != nullptr && Q->next->info.name < P->info.name) {
+        Q = Q->next;
+        }
+        P->next = Q->next;
+        Q->next = P;
+    }
+}

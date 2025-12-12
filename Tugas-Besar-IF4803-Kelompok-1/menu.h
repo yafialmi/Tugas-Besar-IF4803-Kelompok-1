@@ -37,6 +37,7 @@ adrMenu findElementMenu(listMenu &L, infotypeP x);
 void viewMenu(listMenu &L);
 adrMenu allocate(infotypeP x);
 void reduceStock(listMenu &L, string id);
+void tambahMenu(listMenu &L, adrMenu &M);
 
 
 #endif // MENU_H_INCLUDED
