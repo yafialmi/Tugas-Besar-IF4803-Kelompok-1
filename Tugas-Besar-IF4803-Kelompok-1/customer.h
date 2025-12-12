@@ -2,11 +2,15 @@
 #define CUSTOMER_H_INCLUDED
 #include <iostream>
 #include "menu.h"
+#include <string>
+
 using namespace std;
 
 typedef struct elmCustomer *adrCustomer;
 typedef struct elmMenu *adrMenu;
 typedef struct customer infotypeC;
+
+struct listMenu;
 
 struct customer{
     string id;
@@ -33,6 +37,7 @@ void deleteLastCustomer(adrMenu &M, adrCustomer &p);
 void deleteAfterCustomer(adrMenu &M, adrCustomer &p, adrCustomer prec);
 adrCustomer findElementCustomer(adrMenu M, infotypeC x);
 void viewCustomer(adrMenu &M);
+void orderMenu(listMenu &M, string namaMenu, infotypeC customer, int quantity);
 
 
 #endif // CUSTOMER_H_INCLUDED

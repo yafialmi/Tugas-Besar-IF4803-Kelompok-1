@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1765517986 source:c:\fluxproject\tugas-besar-if4803-kelompok-1#\tugas-besar-if4803-kelompok-1\main.cpp
+1765525225 source:c:\fluxproject\tugas-besar-if4803-kelompok-1#\tugas-besar-if4803-kelompok-1\main.cpp
 	<iostream>
 	"customer.h"
 	"menu.h"
@@ -9,20 +9,22 @@
 1765511620 source:c:\fluxproject\tugas-besar-if4803-kelompok-1#\tugas-besar-if4803-kelompok-1\customer_103012400011.cpp
 	"customer.h"
 
-1765513174 c:\fluxproject\tugas-besar-if4803-kelompok-1#\tugas-besar-if4803-kelompok-1\customer.h
+1765524733 c:\fluxproject\tugas-besar-if4803-kelompok-1#\tugas-besar-if4803-kelompok-1\customer.h
 	<iostream>
 	"menu.h"
+	<string>
 
 1765517074 c:\fluxproject\tugas-besar-if4803-kelompok-1#\tugas-besar-if4803-kelompok-1\menu.h
 	<iostream>
 	"customer.h"
 
-1765185654 source:c:\fluxproject\tugas-besar-if4803-kelompok-1#\tugas-besar-if4803-kelompok-1\customer_103012430041.cpp
+1765524089 source:c:\fluxproject\tugas-besar-if4803-kelompok-1#\tugas-besar-if4803-kelompok-1\customer_103012430041.cpp
 	"customer.h"
 
-1765518014 source:c:\fluxproject\tugas-besar-if4803-kelompok-1#\tugas-besar-if4803-kelompok-1\menu_103012400011.cpp
+1765518631 source:c:\fluxproject\tugas-besar-if4803-kelompok-1#\tugas-besar-if4803-kelompok-1\menu_103012400011.cpp
 	"menu.h"
 	<iostream>
+	<iomanip>
 	"customer.h"
 
 1765513530 source:c:\fluxproject\tugas-besar-if4803-kelompok-1#\tugas-besar-if4803-kelompok-1\menu_103012430041.cpp

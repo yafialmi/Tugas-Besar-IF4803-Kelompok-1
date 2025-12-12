@@ -1,6 +1,6 @@
 #include "customer.h"
 
-/* 
+/*
     I.S : Data M terdefinisi.
     F.S : Mengembalikan true jika M->firstCustomer == nullptr, selain itu false.
 */
@@ -9,7 +9,7 @@ bool checkEmptyCustomer(adrMenu M)
     return M->firstCustomer == nullptr;
 };
 
-/* 
+/*
     I.S : M, p, dan quantity terdefinisi. Saldo user & stok menu belum berubah.
     F.S : Jika saldo cukup → saldo dikurangi price*quantity dan stok menu berkurang 1.
           Jika saldo tidak cukup → menampilkan pesan saldo tidak mencukupi.
@@ -25,7 +25,7 @@ void transaction(adrMenu &M, adrCustomer p, int quantity)
     }
 }
 
-/* 
+/*
     I.S : Data x terdefinisi.
     F.S : Menghasilkan elemen customer baru dengan info x, next = nullptr, prev = nullptr.
 */
@@ -40,7 +40,7 @@ adrCustomer createElementCustomer(infotypeC x)
     return p;
 };
 
-/* 
+/*
     I.S : List customer M mungkin kosong atau berisi. p belum berada dalam list.
     F.S : p menjadi elemen pertama list customer. Transaksi untuk p diproses.
 */
@@ -60,7 +60,7 @@ void insertFirstCustomer(adrMenu &M, adrCustomer p, int quantity)
     }
 };
 
-/* 
+/*
     I.S : List customer M mungkin kosong atau sudah berisi. p belum berada dalam list.
     F.S : p menjadi elemen terakhir list customer. Transaksi diproses.
 */
@@ -84,7 +84,7 @@ void insertLastCustomer(adrMenu &M, adrCustomer p, int quantity)
     }
 };
 
-/* 
+/*
     I.S : List customer tidak kosong. prec berada di tengah list dan p belum terhubung.
     F.S : p disisipkan setelah prec, relasi next dan prev diperbarui. Transaksi diproses.
 */
@@ -112,20 +112,20 @@ void showVipCustomer (listMenu &M) {
     }
 }
 
-/* 
+/*
     I.S : List menu M terdefinisi. Customer belum masuk ke menu mana pun.
     F.S : Jika customer VIP → dimasukkan sebagai elemen pertama.
           Jika tidak VIP → dimasukkan sebagai elemen terakhir.
           Transaksi diproses untuk customer tersebut.
 */
-void orderMenu(listMenu &M, string idMenu, infotypeC customer, int quantity)
+void orderMenu(listMenu &M, string namaMenu, infotypeC customer, int quantity)
 {
     adrMenu temp = M.first;
     adrCustomer x;
     bool found = false;
     while (temp != nullptr && found != true)
     {
-        if (temp->info.id == idMenu)
+        if (temp->info.name == namaMenu)
         {
             found = true;
         }
