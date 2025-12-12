@@ -5,6 +5,7 @@
 using namespace std;
 
 typedef struct elmCustomer *adrCustomer;
+typedef struct elmMenu *adrMenu;
 typedef struct customer infotypeC;
 
 struct customer{

@@ -1,5 +1,7 @@
 #include "menu.h"
-#include "menu_103012400011.cpp"
+#include <iostream>
+#include "customer.h"
+
 /*
     I.S : List L terdefinisi.
     F.S : Mengembalikan true jika L.first == nullptr (list kosong), false jika list berisi elemen.

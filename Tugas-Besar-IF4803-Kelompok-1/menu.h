@@ -4,6 +4,7 @@
 #include "customer.h"
 using namespace std;
 
+typedef struct elmCustomer *adrCustomer;
 typedef struct elmMenu *adrMenu;
 typedef struct menu infotypeP;
 
@@ -34,10 +35,12 @@ void deleteFirstMenu(listMenu &L, adrMenu &p);
 void deleteLastMenu(listMenu &L, adrMenu &p);
 void deleteAfterMenu(listMenu &L, adrMenu &p, adrMenu &Mrec);
 adrMenu findElementMenu(listMenu &L, infotypeP x);
-void viewMenu(listMenu &L);
+void viewMenu(listMenu L);
 adrMenu allocate(infotypeP x);
 void reduceStock(listMenu &L, string id);
-void tambahMenu(listMenu &L, adrMenu &M);
+void tambahMenu(listMenu &L, adrMenu M);
+adrMenu searchLast(listMenu &L);
+
 
 
 #endif // MENU_H_INCLUDED

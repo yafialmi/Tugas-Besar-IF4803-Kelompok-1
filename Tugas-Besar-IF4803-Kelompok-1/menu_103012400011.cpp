@@ -1,5 +1,6 @@
 #include "menu.h"
 #include <iostream>
+#include <iomanip>
 #include "customer.h"
 
 /*
@@ -30,7 +31,7 @@ void deleteFirstMenu(listMenu &L, adrMenu &p){
 void deleteLastMenu(listMenu &L, adrMenu &p){
     adrMenu q;
     q = L.first;
-    while (q->next->next != nullptr){ 
+    while (q->next->next != nullptr){
         q = q->next;
     }
     p = q->next;
@@ -70,13 +71,19 @@ adrMenu findElementMenu(listMenu &L, string idMenu){
     I.S : ListMenu terdefinisi.
     F.S : Menampilkan setiap menu yang ada.
 */
-void viewMenu(listMenu &L){
+void viewMenu(listMenu L){
     adrMenu q = L.first;
-    cout << "Menu: (ID, Name, Price, Stock)";
-    cout << q->info.id << " " << q->info.name << " " << q->info.price << " " << q->info.stock << endl;
-    while (q->next != nullptr){
-        q = q->next;
-        cout << q->info.id << " " << q->info.name << " " << q->info.price << " " << q->info.stock << endl;
+    if (q == nullptr) {
+        cout << "Menu kosong." << endl;
+    }else{
+        cout << "-------------------- Menu --------------------" << endl;
+        cout << left << setw(10) << "ID" << setw(20) << "Name" << setw(10) << "Price" << setw(10) << "Stock" << endl;
+        cout << setw(10) << q->info.id << setw(20) << q->info.name << setw(10) << q->info.price << setw(10) << q->info.stock << endl;
+        while (q->next != nullptr){
+            q = q->next;
+            cout << setw(10) << q->info.id << setw(20) << q->info.name << setw(10) << q->info.price << setw(10) << q->info.stock << endl;
+        }
+        cout << "----------------------------------------------" << endl;
     }
 }
 
@@ -106,16 +113,18 @@ void increaseStock(listMenu &L, string x){
     I.S : ListMenu dan M terdefinisi.
     F.S : Memasukkan M kedalam ListMenu, disorting sesuai dengan abjadnya.
 */
-void tambahMenu(listMenu &L, adrMenu &M){
-    if (L.first == nullptr || P->info.name < L.first->info.name) {
-        P->next = L.first;
-        L.first = P;
+void tambahMenu(listMenu &L, adrMenu M){
+    if (L.first == nullptr){
+        L.first = M;
+    }else if(M->info.name < L.first->info.name){
+        M->next = L.first;
+        L.first = M;
     }else{
         adrMenu Q = L.first;
-        while (Q->next != nullptr && Q->next->info.name < P->info.name) {
+        while (Q->next != nullptr && Q->next->info.name < M->info.name) {
         Q = Q->next;
         }
-        P->next = Q->next;
-        Q->next = P;
+        M->next = Q->next;
+        Q->next = M;
     }
 }
