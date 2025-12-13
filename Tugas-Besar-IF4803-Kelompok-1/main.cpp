@@ -65,7 +65,11 @@ int pelanggan()
             cin >> infoPelanggan.balance;
             cout << "VIP (y/n): ";
             cin >> VIP;
-            infoPelanggan.vip = (VIP == "y");
+            if (VIP == "y") {
+                infoPelanggan.vip = true;
+            }else{
+                infoPelanggan.vip = false;
+            }
         }
         string menuYangDipesan;
         int quantity;
