@@ -38,7 +38,7 @@ adrMenu createElementMenu(infotypeP x){
     F.S : Jika list kosong, p menjadi elemen pertama (L.first = p).
           Jika list tidak kosong, p menunjuk ke elemen pertama lama, dan L.first menunjuk ke p.
 */
-void insertFirstMenu(listMenu &L, adrMenu &p){
+void insertFirstMenu(listMenu &L, adrMenu p){
     if(checkEmptyMenu(L)){
         L.first = p;
     }else{
@@ -51,7 +51,7 @@ void insertFirstMenu(listMenu &L, adrMenu &p){
     F.S : Jika list kosong, p menjadi elemen pertama (L.first = p).
           Jika list tidak kosong, p menjadi elemen terakhir dengan p->next = nullptr.
 */
-void insertLastMenu(listMenu &L, adrMenu &p){
+void insertLastMenu(listMenu &L, adrMenu p){
     if(checkEmptyMenu(L)){
         L.first = p;
     }else{
@@ -66,7 +66,7 @@ void insertLastMenu(listMenu &L, adrMenu &p){
     I.S : List tidak kosong, prec tidak berada di L.first ataupun L.last. p terdefinisi dan siap disisipkan.
     F.S : p disisipkan setelah prec. p->next menunjuk ke node yang sebelumnya ada setelah prec, dan prec->next menunjuk ke p.
 */
-void insertAfterMenu(listMenu &L, adrMenu &p, adrMenu &prec){
+void insertAfterMenu(listMenu &L, adrMenu p, adrMenu prec){
     /* I.S: List tidak kosong, prec tidak berada di L.first ataupun L.last */
     p->next = prec->next;
     prec->next = p;

@@ -7,11 +7,15 @@ using namespace std;
 listMenu darren_almi;
 infotypeC infoPelanggan;
 
+
 int pelanggan();
 int admin();
 
 int main()
 {
+    insertDataDummyMenu1(darren_almi);
+    insertDataDummyMenu2(darren_almi);
+    insertDataDummyMenu3(darren_almi);
     string choice;
     cout << "===== Pilih Mode =====" << endl;
     cout << "1. Pelanggan (Studi Kasus)" << endl;
@@ -32,7 +36,7 @@ int main()
 
 int pelanggan()
 {
-    string choice;
+    int choice;
     cout << "===== Mode Pelanggan =====" << endl;
     if (infoPelanggan.id != ""){
         cout << "ID anda: " << infoPelanggan.id << endl;
@@ -50,55 +54,63 @@ int pelanggan()
     cout << "9. Ubah Data Anda" << endl;
     cout << "0. Kembali ke menu awal" << endl;
     cin >> choice;
-    if (choice == "1"){
-        viewMenu(darren_almi);
-        pelanggan();
-    }else if(choice == "2"){
-        if (infoPelanggan.id == ""){
-            string VIP;
-            cout << "===== Data Pelanggan =====" << endl;
-            cout << "ID Pelanggan: ";
-            cin >> infoPelanggan.id;
-            cout << "Nama Pelanggan: ";
-            cin >> infoPelanggan.name;
-            cout << "Saldo: ";
-            cin >> infoPelanggan.balance;
-            cout << "VIP (y/n): ";
-            cin >> VIP;
-            if (VIP == "y") {
-                infoPelanggan.vip = true;
-            }else{
-                infoPelanggan.vip = false;
+    switch (choice) {
+        case 1 : 
+            viewMenu(darren_almi);
+            pelanggan();
+            break;
+        case 2:
+            if (infoPelanggan.id == ""){
+                string VIP;
+                cout << "===== Data Pelanggan =====" << endl;
+                cout << "ID Pelanggan: ";
+                cin >> infoPelanggan.id;
+                cout << "Nama Pelanggan: ";
+                cin >> infoPelanggan.name;
+                cout << "Saldo: ";
+                cin >> infoPelanggan.balance;
+                cout << "VIP (y/n): ";
+                cin >> VIP;
+                if (VIP == "y") {
+                    infoPelanggan.vip = true;
+                }else{
+                    infoPelanggan.vip = false;
+                }
+                string menuYangDipesan;
+                int quantity;
+                cout << "Masukkan nama menu yang ingin anda pesan: ";
+                cin >> menuYangDipesan;
+                cout << "Jumlah yang ingin dipesan: ";
+                cin >> quantity;
+                orderMenu(darren_almi,menuYangDipesan,infoPelanggan,quantity);
+                pelanggan();
             }
-        }
-        string menuYangDipesan;
-        int quantity;
-        cout << "Masukkan nama menu yang ingin anda pesan: ";
-        cin >> menuYangDipesan;
-        cout << "Jumlah yang ingin dipesan: ";
-        cin >> quantity;
-        orderMenu(darren_almi,menuYangDipesan,infoPelanggan,quantity);
-        pelanggan();
-    }else if (choice == "9"){
-        string VIP;
-        cout << "===== Data Pelanggan =====" << endl;
-        cout << "ID Pelanggan: ";
-        cin >> infoPelanggan.id;
-        cout << "Nama Pelanggan: ";
-        cin >> infoPelanggan.name;
-        cout << "Saldo: ";
-        cin >> infoPelanggan.balance;
-        cout << "VIP (y/n): ";
-        cin >> VIP;
-        infoPelanggan.vip = (VIP == "y");
-        pelanggan();
-    }else if (choice == "0"){
-        cout << "\033[2J\033[1;1H";
-        main();
-    }else{
-        pelanggan();
+            break;
+        case 9:
+            {
+                string VIP;
+                cout << "===== Data Pelanggan =====" << endl;
+                cout << "ID Pelanggan: ";
+                cin >> infoPelanggan.id;
+                cout << "Nama Pelanggan: ";
+                cin >> infoPelanggan.name;
+                cout << "Saldo: ";
+                cin >> infoPelanggan.balance;
+                cout << "VIP (y/n): ";
+                cin >> VIP;
+                infoPelanggan.vip = (VIP == "y");
+                pelanggan();
+            }
+            break;
+        case 0:
+            cout << "\033[2J\033[1;1H";
+            main();
+            break;
+        default:
+            pelanggan();
     }
-}
+    return 0;
+};
 
 int admin()
 {
@@ -126,4 +138,5 @@ int admin()
         cout << "\033[2J\033[1;1H";
         main();
     }
+    return 0;
 }
