@@ -4,15 +4,16 @@
 
 using namespace std;
 
-listMenu darren_almi;
 infotypeC infoPelanggan;
 
 
-int pelanggan();
-int admin();
+int pelanggan(listMenu &darren_almi);
+int admin(listMenu &darren_almi);
 
 int main()
 {
+    listMenu darren_almi;
+    createlistMenu(darren_almi);
     insertDataDummyMenu1(darren_almi);
     insertDataDummyMenu2(darren_almi);
     insertDataDummyMenu3(darren_almi);
@@ -23,10 +24,10 @@ int main()
     cin >> choice;
     if (choice == "1"){
         cout << "\033[2J\033[1;1H";
-        pelanggan();
+        pelanggan(darren_almi);
     }else if (choice == "2"){
         cout << "\033[2J\033[1;1H";
-        admin();
+        admin(darren_almi);
     }else{
         cout << "\033[2J\033[1;1H";
         main();
@@ -34,7 +35,7 @@ int main()
     return 0;
 }
 
-int pelanggan()
+int pelanggan(listMenu &darren_almi)
 {
     int choice;
     cout << "===== Mode Pelanggan =====" << endl;
@@ -55,9 +56,9 @@ int pelanggan()
     cout << "0. Kembali ke menu awal" << endl;
     cin >> choice;
     switch (choice) {
-        case 1 : 
+        case 1 :
             viewMenu(darren_almi);
-            pelanggan();
+            pelanggan(darren_almi);
             break;
         case 2:
             if (infoPelanggan.id == ""){
@@ -83,7 +84,7 @@ int pelanggan()
                 cout << "Jumlah yang ingin dipesan: ";
                 cin >> quantity;
                 orderMenu(darren_almi,menuYangDipesan,infoPelanggan,quantity);
-                pelanggan();
+                pelanggan(darren_almi);
             }
             break;
         case 9:
@@ -99,7 +100,7 @@ int pelanggan()
                 cout << "VIP (y/n): ";
                 cin >> VIP;
                 infoPelanggan.vip = (VIP == "y");
-                pelanggan();
+                pelanggan(darren_almi);
             }
             break;
         case 0:
@@ -107,12 +108,12 @@ int pelanggan()
             main();
             break;
         default:
-            pelanggan();
+            pelanggan(darren_almi);
     }
     return 0;
 };
 
-int admin()
+int admin(listMenu &darren_almi)
 {
     string choice;
     cout << "===== Mode Admin =====" << endl;
@@ -133,7 +134,7 @@ int admin()
         cout << "Stock: ";
         cin >> info.stock;
         tambahMenu(darren_almi, allocate(info));
-        admin();
+        admin(darren_almi);
     }else if (choice == "0"){
         cout << "\033[2J\033[1;1H";
         main();
