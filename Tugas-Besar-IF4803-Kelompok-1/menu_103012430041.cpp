@@ -6,7 +6,8 @@
     I.S : List L terdefinisi.
     F.S : Mengembalikan true jika L.first == nullptr (list kosong), false jika list berisi elemen.
 */
-bool checkEmptyMenu(listMenu L){
+bool checkEmptyMenu(listMenu L)
+{
     return L.first == nullptr;
 };
 
@@ -14,7 +15,8 @@ bool checkEmptyMenu(listMenu L){
     I.S : List L belum diinisialisasi.
     F.S : L.first = nullptr, list siap digunakan dalam kondisi kosong.
 */
-void createListMenu(listMenu &L){
+void createListMenu(listMenu &L)
+{
     L.first = nullptr;
 };
 
@@ -23,7 +25,8 @@ void createListMenu(listMenu &L){
     F.S : Membuat elemen menu baru dengan info x, firstCustomer = nullptr, next = nullptr.
           Mengembalikan pointer ke elemen yang baru dibuat.
 */
-adrMenu createElementMenu(infotypeP x){
+adrMenu createElementMenu(infotypeP x)
+{
     adrMenu p;
     p = new elmMenu();
     p->firstCustomer = nullptr;
@@ -38,10 +41,14 @@ adrMenu createElementMenu(infotypeP x){
     F.S : Jika list kosong, p menjadi elemen pertama (L.first = p).
           Jika list tidak kosong, p menunjuk ke elemen pertama lama, dan L.first menunjuk ke p.
 */
-void insertFirstMenu(listMenu &L, adrMenu p){
-    if(checkEmptyMenu(L)){
+void insertFirstMenu(listMenu &L, adrMenu p)
+{
+    if (checkEmptyMenu(L))
+    {
         L.first = p;
-    }else{
+    }
+    else
+    {
         p->next = L.first;
         L.first = p;
     }
@@ -51,12 +58,17 @@ void insertFirstMenu(listMenu &L, adrMenu p){
     F.S : Jika list kosong, p menjadi elemen pertama (L.first = p).
           Jika list tidak kosong, p menjadi elemen terakhir dengan p->next = nullptr.
 */
-void insertLastMenu(listMenu &L, adrMenu p){
-    if(checkEmptyMenu(L)){
+void insertLastMenu(listMenu &L, adrMenu p)
+{
+    if (checkEmptyMenu(L))
+    {
         L.first = p;
-    }else{
+    }
+    else
+    {
         adrMenu temp = L.first;
-        while(temp->next != nullptr){
+        while (temp->next != nullptr)
+        {
             temp = temp->next;
         };
         temp->next = p;
@@ -66,7 +78,8 @@ void insertLastMenu(listMenu &L, adrMenu p){
     I.S : List tidak kosong, prec tidak berada di L.first ataupun L.last. p terdefinisi dan siap disisipkan.
     F.S : p disisipkan setelah prec. p->next menunjuk ke node yang sebelumnya ada setelah prec, dan prec->next menunjuk ke p.
 */
-void insertAfterMenu(listMenu &L, adrMenu p, adrMenu prec){
+void insertAfterMenu(listMenu &L, adrMenu p, adrMenu prec)
+{
     /* I.S: List tidak kosong, prec tidak berada di L.first ataupun L.last */
     p->next = prec->next;
     prec->next = p;
@@ -74,24 +87,50 @@ void insertAfterMenu(listMenu &L, adrMenu p, adrMenu prec){
 
 /*
     I.S : List L terdefinisi dan mungkin berisi beberapa elemen menu.
-    F.S : Menghapus semua elemen menu dari list L yang memiliki nilai stock sama dengan 0.
+    F.S : Menghapus elemen menu dari list L yang memiliki nilai stock sama dengan 0.
           Elemen yang dihapus adalah yang berada setelah elemen saat ini dalam iterasi.
     Parameter:
         - listMenu &L : Referensi ke list menu yang akan diperiksa dan dihapus elemennya jika stock = 0.
 */
-void deleteWhenStockZero(listMenu &L) {
-    adrMenu p = L.first;
+void deleteWhenStockZero(listMenu &L)
+{
+    if (L.first == nullptr) return;
+
     adrMenu outputDelete;
-    while (p != nullptr) {
-        if(p->next != nullptr && p->next->info.stock == 0) {
-            deleteAfterMenu(L, outputDelete, p);
-        } else {
-            p = p->next;
+
+    while (L.first != nullptr && L.first->info.stock == 0)
+    {
+        deleteFirstMenu(L, outputDelete);
+        cout << "[INFO] Stock Menu "
+             << outputDelete->info.name
+             << " sudah habis sehingga dihapus dari daftar menu!" << endl;
+    }
+
+    adrMenu temp = L.first;
+    while (temp != nullptr && temp->next != nullptr)
+    {
+        if (temp->next->info.stock == 0)
+        {
+            deleteAfterMenu(L, outputDelete, temp);
+            cout << "[INFO] Stock Menu "
+                 << outputDelete->info.name
+                 << " sudah habis sehingga dihapus dari daftar menu!" << endl;
         }
-    };
+        else
+        {
+            temp = temp->next;
+        }
+    }
 }
 
-void insertDummyDataMenu1(listMenu &L) {
+
+/*
+    I.S : List menu L terdefinisi (mungkin kosong atau berisi elemen).
+    F.S : Menambahkan menu dummy pertama (Nasi_Goreng dengan ID ID001, price 18000, stock 10)
+          ke dalam list L sebagai elemen pertama.
+*/
+void insertDummyDataMenu1(listMenu &L)
+{
     infotypeP x;
     x.id = "ID001";
     x.name = "Nasi_Goreng";
@@ -100,7 +139,13 @@ void insertDummyDataMenu1(listMenu &L) {
     insertFirstMenu(L, createElementMenu(x));
 }
 
-void insertDummyDataMenu2(listMenu &L) {
+/*
+    I.S : List menu L terdefinisi (mungkin kosong atau berisi elemen).
+    F.S : Menambahkan menu dummy kedua (Mie_Goreng dengan ID ID002, price 15000, stock 5)
+          ke dalam list L sebagai elemen pertama.
+*/
+void insertDummyDataMenu2(listMenu &L)
+{
     infotypeP x;
     x.id = "ID002";
     x.name = "Mie_Goreng";
@@ -109,7 +154,13 @@ void insertDummyDataMenu2(listMenu &L) {
     insertFirstMenu(L, createElementMenu(x));
 }
 
-void insertDummyDataMenu3(listMenu &L) {
+/*
+    I.S : List menu L terdefinisi (mungkin kosong atau berisi elemen).
+    F.S : Menambahkan menu dummy ketiga (Kwetiaw_Goreng dengan ID ID003, price 12000, stock 7)
+          ke dalam list L sebagai elemen pertama.
+*/
+void insertDummyDataMenu3(listMenu &L)
+{
     infotypeP x;
     x.id = "ID003";
     x.name = "Kwetiaw_Goreng";
@@ -117,5 +168,3 @@ void insertDummyDataMenu3(listMenu &L) {
     x.stock = 7;
     insertFirstMenu(L, createElementMenu(x));
 }
-
-

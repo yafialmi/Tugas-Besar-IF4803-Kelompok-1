@@ -63,6 +63,8 @@ int pelanggan(listMenu &darren_almi)
     }
     cout << "1. Lihat Menu" << endl;
     cout << "2. Lakukan Pemesanan" << endl;
+    cout << "3. Tambah Saldo" << endl;
+    cout << "4. Lihat Pesanan" << endl;
     cout << "9. Ubah Data Anda" << endl;
     cout << "0. Kembali ke menu awal" << endl;
     cin >> choice;
@@ -91,12 +93,38 @@ int pelanggan(listMenu &darren_almi)
             cin >> quantity;
             orderMenu(darren_almi, menuYangDipesan, infoPelanggan, quantity);
             pelanggan(darren_almi);
-        }else{
-            cout << "Masukkan nama menu yang ingin anda pesan: ";
+        }
+        else
+        {
+            cout << "Masukkan nama menu yang ingin anda pesan: " << endl;
             cin >> menuYangDipesan;
             cout << "Jumlah yang ingin dipesan: ";
             cin >> quantity;
             orderMenu(darren_almi, menuYangDipesan, infoPelanggan, quantity);
+            pelanggan(darren_almi);
+        }
+        break;
+    case 3:
+        if (infoPelanggan.id == "")
+        {
+            cout << "ID Tidak terdaftar! Mohon daftar terlebih dahulu" << endl;
+            pelanggan(darren_almi);
+        }
+        else
+        {
+            addBalance(infoPelanggan);
+            pelanggan(darren_almi);
+        }
+        break;
+    case 4:
+        if (infoPelanggan.id == "")
+        {
+            cout << "ID Tidak terdaftar! Mohon daftar terlebih dahulu" << endl;
+            pelanggan(darren_almi);
+        }
+        else
+        {
+            showListPesanan(darren_almi, infoPelanggan.id);
             pelanggan(darren_almi);
         }
         break;

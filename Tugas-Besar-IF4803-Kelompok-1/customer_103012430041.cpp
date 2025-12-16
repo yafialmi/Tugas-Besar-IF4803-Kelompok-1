@@ -20,16 +20,14 @@ void transaction(adrMenu &M, adrCustomer &p, int quantity)
     {
         p->info.balance = p->info.balance - (M->info.price * quantity);
         M->info.stock -= quantity;
-
-        insertFirstCustomer(M, p, quantity);
+        insertFirstCustomer(M, p);
         cout << "[SUKSES] Pesanan berhasil dibuat!" << endl;
     }
     else if ((p->info.balance >= M->info.price * quantity && p->info.vip == false) && (M->info.stock >= quantity))
     {
         p->info.balance = p->info.balance - (M->info.price * quantity);
         M->info.stock -= quantity;
-
-        insertLastCustomer(M, p, quantity);
+        insertLastCustomer(M, p);
         cout << "[SUKSES] Pesanan berhasil dibuat!" << endl;
     }
     else
@@ -57,7 +55,7 @@ adrCustomer createElementCustomer(infotypeC x)
     I.S : List customer M mungkin kosong atau berisi. p belum berada dalam list.
     F.S : p menjadi elemen pertama list customer. Transaksi untuk p diproses.
 */
-void insertFirstCustomer(adrMenu &M, adrCustomer p, int quantity)
+void insertFirstCustomer(adrMenu &M, adrCustomer p)
 {
     if (checkEmptyCustomer(M))
     {
@@ -65,8 +63,8 @@ void insertFirstCustomer(adrMenu &M, adrCustomer p, int quantity)
     }
     else
     {
-        M->firstCustomer->prev = p;
         p->next = M->firstCustomer;
+        M->firstCustomer->prev = p;
         M->firstCustomer = p;
     }
 };
@@ -75,7 +73,7 @@ void insertFirstCustomer(adrMenu &M, adrCustomer p, int quantity)
     I.S : List customer M mungkin kosong atau sudah berisi. p belum berada dalam list.
     F.S : p menjadi elemen terakhir list customer. Transaksi diproses.
 */
-void insertLastCustomer(adrMenu &M, adrCustomer p, int quantity)
+void insertLastCustomer(adrMenu &M, adrCustomer p)
 {
     if (checkEmptyCustomer(M))
     {
@@ -106,12 +104,16 @@ void insertAfterCustomer(adrMenu &M, adrCustomer p, adrCustomer prec, int quanti
     prec->next = p;
 };
 
+/*
+    I.S : List menu M terdefinisi dan mungkin berisi beberapa menu dengan customer.
+    F.S : Menampilkan semua customer yang memiliki status VIP dari seluruh list menu.
+*/
 void showVipCustomer(listMenu &M)
 {
     adrMenu temp = M.first;
-    adrCustomer q = temp->firstCustomer;
     while (temp != nullptr)
     {
+        adrCustomer q = temp->firstCustomer;
         while (q != nullptr)
         {
             if (q->info.vip == true)
@@ -124,8 +126,14 @@ void showVipCustomer(listMenu &M)
     }
 }
 
+/*
+    I.S : List menu M terdefinisi dan namaMenu terdefinisi.
+    F.S : Mengembalikan pointer ke elemen menu yang memiliki nama sesuai namaMenu.
+          Jika tidak ditemukan, mengembalikan nullptr.
+*/
 adrMenu searchMenu(listMenu &M, string namaMenu)
 {
+
     adrMenu temp = M.first;
     while (temp != nullptr)
     {
@@ -139,6 +147,68 @@ adrMenu searchMenu(listMenu &M, string namaMenu)
 };
 
 /*
+    I.S : List menu M terdefinisi dan idCustomer terdefinisi.
+    F.S : Menampilkan daftar pesanan dari customer dengan ID sesuai idCustomer,
+          menunjukkan nama menu dan total pemesanan untuk setiap menu.
+*/
+void showListPesanan(listMenu &M, string idCustomer)
+{
+    adrMenu temp = M.first;
+    cout << "===== Daftar Pesanan =====" << endl;
+
+    while (temp != nullptr)
+    {
+        int total = countPesanan(temp, idCustomer);
+
+        if (total > 0)
+        {
+            cout << temp->info.id << " | "
+                 << temp->info.name
+                 << " | Total: " << total << endl;
+        }
+
+        temp = temp->next;
+    }
+
+    cout << "-----------------------------" << endl;
+}
+
+/*
+    I.S : menu terdefinisi dan idCustomer terdefinisi.
+    F.S : Mengembalikan jumlah total pesanan (jumlah elemen customer dengan ID tertentu)
+          dalam list customer menu.
+*/
+int countPesanan(adrMenu menu, string idCustomer)
+{
+    int totalMenu = 0;
+    adrCustomer tempC = menu->firstCustomer;
+
+    while (tempC != nullptr)
+    {
+        if (tempC->info.id == idCustomer)
+        {
+            totalMenu++;
+        }
+        tempC = tempC->next;
+    }
+    return totalMenu;
+}
+
+/*
+    I.S : customer terdefinisi dengan balance awal tertentu.
+    F.S : Meminta input deposit saldo dari user, menambahkan nilai tersebut ke customer.balance,
+          dan menampilkan saldo akhir customer.
+*/
+void addBalance(infotypeC &customer)
+{
+    int newBalance;
+    cout << "[INFO] Masukkan deposit saldo: ";
+    cin >> newBalance;
+    customer.balance = customer.balance + newBalance;
+    cout << "[INFO] Saldo anda berhasil ditambahkan! saldo anda sekarang: " << customer.balance << endl;
+}
+
+/*
     I.S : List menu M terdefinisi. Customer belum masuk ke menu mana pun.
     F.S : Jika customer VIP → dimasukkan sebagai elemen pertama.
           Jika tidak VIP → dimasukkan sebagai elemen terakhir.
@@ -146,12 +216,18 @@ adrMenu searchMenu(listMenu &M, string namaMenu)
 */
 void orderMenu(listMenu &M, string namaMenu, infotypeC &customer, int quantity)
 {
+    int i;
     adrMenu temp = searchMenu(M, namaMenu);
     adrCustomer x;
 
-    x = createElementCustomer(customer);
-    if (customer.balance > temp->info.price * quantity){
-        customer.balance = customer.balance - temp->info.price;
+    if (customer.balance > temp->info.price * quantity)
+    {
+        customer.balance = customer.balance - temp->info.price * quantity;
     }
-    transaction(temp, x, quantity);
+    for (i = 0; i < quantity; i++)
+    {
+        x = createElementCustomer(customer);
+        transaction(temp, x, i);
+    }
+    deleteWhenStockZero(M);
 }

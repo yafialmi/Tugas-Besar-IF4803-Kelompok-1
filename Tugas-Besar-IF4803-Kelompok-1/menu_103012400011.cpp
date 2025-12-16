@@ -101,6 +101,10 @@ adrMenu allocate(infotypeP x){
     I.S : ListMenu dan x terdefinisi.
     F.S : Menambahkan stock dari menu yang memiliki ID sama dengan x
 */
+/*
+    I.S : List menu L terdefinisi, elemen dengan ID x ditemukan dalam list, dan x terdefinisi.
+    F.S : Menambah nilai stock menu dengan ID x sebanyak 1.
+*/
 void increaseStock(listMenu &L, string x){
     adrMenu q;
     q = findElementMenu(L, x);
@@ -112,6 +116,10 @@ void increaseStock(listMenu &L, string x){
 /*
     I.S : ListMenu dan M terdefinisi.
     F.S : Memasukkan M kedalam ListMenu, disorting sesuai dengan abjadnya.
+*/
+/*
+    I.S : List menu L terdefinisi (mungkin kosong atau berisi), M terdefinisi dan siap disisipkan.
+    F.S : M disisipkan ke dalam list L dengan urutan berdasarkan nama menu secara alfabetis.
 */
 void tambahMenu(listMenu &L, adrMenu M){
     if (L.first == nullptr){
