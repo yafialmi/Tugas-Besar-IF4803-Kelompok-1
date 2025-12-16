@@ -3,6 +3,7 @@
     *.class
     *.pyc
     *.cbp
+    *.exe
 
     # Ignore temporary files
     *.tmp

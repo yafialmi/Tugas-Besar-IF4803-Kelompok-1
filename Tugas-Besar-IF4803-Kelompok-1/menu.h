@@ -26,7 +26,7 @@ struct listMenu {
 };
 
 bool checkEmptyMenu(listMenu L);
-void createlistMenu(listMenu &L);
+void createListMenu(listMenu &L);
 adrMenu createElementMenu(infotypeP x);
 void insertFirstMenu(listMenu &L, adrMenu M);
 void insertLastMenu(listMenu &L, adrMenu M);
@@ -39,9 +39,9 @@ void viewMenu(listMenu L);
 adrMenu allocate(infotypeP x);
 void reduceStock(listMenu &L, string id);
 void tambahMenu(listMenu &L, adrMenu M);
-void insertDataDummyMenu1(listMenu &L);
-void insertDataDummyMenu2(listMenu &L);
-void insertDataDummyMenu3(listMenu &L);
+void insertDummyDataMenu1(listMenu &L);
+void insertDummyDataMenu2(listMenu &L);
+void insertDummyDataMenu3(listMenu &L);
 adrMenu searchLast(listMenu &L);
 
 

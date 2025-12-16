@@ -94,7 +94,7 @@ void deleteWhenStockZero(listMenu &L) {
 void insertDummyDataMenu1(listMenu &L) {
     infotypeP x;
     x.id = "ID001";
-    x.name = "Nasi Goreng";
+    x.name = "Nasi_Goreng";
     x.price = 18000;
     x.stock = 10;
     insertFirstMenu(L, createElementMenu(x));
@@ -103,7 +103,7 @@ void insertDummyDataMenu1(listMenu &L) {
 void insertDummyDataMenu2(listMenu &L) {
     infotypeP x;
     x.id = "ID002";
-    x.name = "Mie Goreng";
+    x.name = "Mie_Goreng";
     x.price = 15000;
     x.stock = 5;
     insertFirstMenu(L, createElementMenu(x));
@@ -112,7 +112,7 @@ void insertDummyDataMenu2(listMenu &L) {
 void insertDummyDataMenu3(listMenu &L) {
     infotypeP x;
     x.id = "ID003";
-    x.name = "Kwetiaw Goreng";
+    x.name = "Kwetiaw_Goreng";
     x.price = 12000;
     x.stock = 7;
     insertFirstMenu(L, createElementMenu(x));

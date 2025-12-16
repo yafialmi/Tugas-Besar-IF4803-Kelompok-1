@@ -14,14 +14,27 @@ bool checkEmptyCustomer(adrMenu M)
     F.S : Jika saldo cukup → saldo dikurangi price*quantity dan stok menu berkurang 1.
           Jika saldo tidak cukup → menampilkan pesan saldo tidak mencukupi.
 */
-void transaction(adrMenu &M, adrCustomer p, int quantity)
+void transaction(adrMenu &M, adrCustomer &p, int quantity)
 {
-    if (p->info.balance > M->info.price)
+    if ((p->info.balance >= M->info.price * quantity && p->info.vip == true) && (M->info.stock >= quantity))
     {
         p->info.balance = p->info.balance - (M->info.price * quantity);
-        M->info.stock--;
-    }else {
-        cout << "Saldo Pengguna " << p->info.name << " tidak mencukupi" << endl;
+        M->info.stock -= quantity;
+
+        insertFirstCustomer(M, p, quantity);
+        cout << "[SUKSES] Pesanan berhasil dibuat!" << endl;
+    }
+    else if ((p->info.balance >= M->info.price * quantity && p->info.vip == false) && (M->info.stock >= quantity))
+    {
+        p->info.balance = p->info.balance - (M->info.price * quantity);
+        M->info.stock -= quantity;
+
+        insertLastCustomer(M, p, quantity);
+        cout << "[SUKSES] Pesanan berhasil dibuat!" << endl;
+    }
+    else
+    {
+        cout << "[INFO] Saldo Pengguna " << p->info.name << " tidak mencukupi, jumlah saldo anda: " << p->info.balance << endl;
     }
 }
 
@@ -56,7 +69,6 @@ void insertFirstCustomer(adrMenu &M, adrCustomer p, int quantity)
         M->firstCustomer->prev = p;
         p->next = M->firstCustomer;
         M->firstCustomer = p;
-        transaction(M, p, quantity);
     }
 };
 
@@ -80,7 +92,6 @@ void insertLastCustomer(adrMenu &M, adrCustomer p, int quantity)
         };
         p->prev = temp;
         temp->next = p;
-        transaction(M, p, quantity);
     }
 };
 
@@ -95,15 +106,18 @@ void insertAfterCustomer(adrMenu &M, adrCustomer p, adrCustomer prec, int quanti
     p->next = prec->next;
     prec->next->prev = p;
     prec->next = p;
-    transaction(M, p, quantity);
 };
 
-void showVipCustomer (listMenu &M) {
+void showVipCustomer(listMenu &M)
+{
     adrMenu temp = M.first;
     adrCustomer q = temp->firstCustomer;
-    while (temp != nullptr) {
-        while (q != nullptr) {
-            if (q->info.vip == true) {
+    while (temp != nullptr)
+    {
+        while (q != nullptr)
+        {
+            if (q->info.vip == true)
+            {
                 cout << "Customer VIP: " << q->info.name << " (ID: " << q->info.id << ", Balance: " << q->info.balance << ")" << endl;
             }
             q = q->next;
@@ -112,29 +126,32 @@ void showVipCustomer (listMenu &M) {
     }
 }
 
+adrMenu searchMenu(listMenu &M, string namaMenu)
+{
+    adrMenu temp = M.first;
+    while (temp != nullptr)
+    {
+        if (temp->info.name == namaMenu)
+        {
+            return temp;
+        }
+        temp = temp->next;
+    }
+    return nullptr;
+};
+
 /*
     I.S : List menu M terdefinisi. Customer belum masuk ke menu mana pun.
     F.S : Jika customer VIP → dimasukkan sebagai elemen pertama.
           Jika tidak VIP → dimasukkan sebagai elemen terakhir.
           Transaksi diproses untuk customer tersebut.
 */
-void orderMenu(listMenu &M, string namaMenu, infotypeC customer, int quantity)
+void orderMenu(listMenu &M, string namaMenu, infotypeC &customer, int quantity)
 {
-    adrMenu temp = M.first;
+    adrMenu temp = searchMenu(M, namaMenu);
     adrCustomer x;
-    bool found = false;
-    while (temp != nullptr && found != true)
-    {
-        if (temp->info.name == namaMenu)
-        {
-            found = true;
-        }
-        temp = temp->next;
-    }
+
     x = createElementCustomer(customer);
-    if (x->info.vip == true) {
-        insertFirstCustomer(temp, x, quantity);
-    }else{
-        insertLastCustomer(temp, x, quantity);
-    }
+    customer.balance = customer.balance - temp->info.price;
+    transaction(temp, x, quantity);
 }
