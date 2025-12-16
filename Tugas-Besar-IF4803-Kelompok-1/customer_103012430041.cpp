@@ -62,7 +62,6 @@ void insertFirstCustomer(adrMenu &M, adrCustomer p, int quantity)
     if (checkEmptyCustomer(M))
     {
         M->firstCustomer = p;
-        transaction(M, p, quantity);
     }
     else
     {
@@ -81,7 +80,6 @@ void insertLastCustomer(adrMenu &M, adrCustomer p, int quantity)
     if (checkEmptyCustomer(M))
     {
         M->firstCustomer = p;
-        transaction(M, p, quantity);
     }
     else
     {
@@ -152,6 +150,8 @@ void orderMenu(listMenu &M, string namaMenu, infotypeC &customer, int quantity)
     adrCustomer x;
 
     x = createElementCustomer(customer);
-    customer.balance = customer.balance - temp->info.price;
+    if (customer.balance > temp->info.price * quantity){
+        customer.balance = customer.balance - temp->info.price;
+    }
     transaction(temp, x, quantity);
 }
