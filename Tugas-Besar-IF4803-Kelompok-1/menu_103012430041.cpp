@@ -92,37 +92,34 @@ void insertAfterMenu(listMenu &L, adrMenu p, adrMenu prec)
     Parameter:
         - listMenu &L : Referensi ke list menu yang akan diperiksa dan dihapus elemennya jika stock = 0.
 */
-void deleteWhenStockZero(listMenu &L)
+void deleteMenuIfStockZero(listMenu &L)
 {
-    if (L.first == nullptr) return;
-
+    adrMenu temp = L.first;
     adrMenu outputDelete;
-
-    while (L.first != nullptr && L.first->info.stock == 0)
+    if (L.first->info.stock == 0)
     {
         deleteFirstMenu(L, outputDelete);
         cout << "[INFO] Stock Menu "
              << outputDelete->info.name
              << " sudah habis sehingga dihapus dari daftar menu!" << endl;
+        return;
     }
-
-    adrMenu temp = L.first;
-    while (temp != nullptr && temp->next != nullptr)
+    else
     {
-        if (temp->next->info.stock == 0)
+        while (temp->next != nullptr)
         {
-            deleteAfterMenu(L, outputDelete, temp);
-            cout << "[INFO] Stock Menu "
-                 << outputDelete->info.name
-                 << " sudah habis sehingga dihapus dari daftar menu!" << endl;
-        }
-        else
-        {
+            if (temp->next->info.stock == 0)
+            {
+                deleteAfterMenu(L, outputDelete, temp);
+                cout << "[INFO] Stock Menu "
+                     << outputDelete->info.name
+                     << " sudah habis sehingga dihapus dari daftar menu!" << endl;
+                return;
+            }
             temp = temp->next;
         }
     }
 }
-
 
 /*
     I.S : List menu L terdefinisi (mungkin kosong atau berisi elemen).
@@ -136,7 +133,7 @@ void insertDummyDataMenu1(listMenu &L)
     x.name = "Nasi_Goreng";
     x.price = 18000;
     x.stock = 10;
-    insertFirstMenu(L, createElementMenu(x));
+    insertLastMenu(L, createElementMenu(x));
 }
 
 /*
@@ -151,7 +148,7 @@ void insertDummyDataMenu2(listMenu &L)
     x.name = "Mie_Goreng";
     x.price = 15000;
     x.stock = 5;
-    insertFirstMenu(L, createElementMenu(x));
+    insertLastMenu(L, createElementMenu(x));
 }
 
 /*
@@ -166,5 +163,25 @@ void insertDummyDataMenu3(listMenu &L)
     x.name = "Kwetiaw_Goreng";
     x.price = 12000;
     x.stock = 7;
-    insertFirstMenu(L, createElementMenu(x));
+    insertLastMenu(L, createElementMenu(x));
 }
+
+/*
+    I.S : List menu M terdefinisi dan namaMenu terdefinisi.
+    F.S : Mengembalikan pointer ke elemen menu yang memiliki nama sesuai namaMenu.
+          Jika tidak ditemukan, mengembalikan nullptr.
+*/
+adrMenu searchMenu(listMenu M, string namaMenu)
+{
+
+    adrMenu temp = M.first;
+    while (temp != nullptr)
+    {
+        if (temp->info.name == namaMenu)
+        {
+            return temp;
+        }
+        temp = temp->next;
+    }
+    return nullptr;
+};

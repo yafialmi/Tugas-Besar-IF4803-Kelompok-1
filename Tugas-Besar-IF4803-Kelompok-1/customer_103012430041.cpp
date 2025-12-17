@@ -1,4 +1,5 @@
 #include "customer.h"
+#include "menu.h"
 
 /*
     I.S : Data M terdefinisi.
@@ -16,24 +17,43 @@ bool checkEmptyCustomer(adrMenu M)
 */
 void transaction(adrMenu &M, adrCustomer &p, int quantity)
 {
-    if ((p->info.balance >= M->info.price * quantity && p->info.vip == true) && (M->info.stock >= quantity))
+    int totalHarga = M->info.price * quantity;
+
+    if (quantity <= 0)
     {
-        p->info.balance = p->info.balance - (M->info.price * quantity);
-        M->info.stock -= quantity;
-        insertFirstCustomer(M, p);
-        cout << "[SUKSES] Pesanan berhasil dibuat!" << endl;
+        cout << "[INFO] Jumlah pesanan tidak valid." << endl;
+        return;
     }
-    else if ((p->info.balance >= M->info.price * quantity && p->info.vip == false) && (M->info.stock >= quantity))
+
+    if (quantity > M->info.stock)
     {
-        p->info.balance = p->info.balance - (M->info.price * quantity);
-        M->info.stock -= quantity;
-        insertLastCustomer(M, p);
-        cout << "[SUKSES] Pesanan berhasil dibuat!" << endl;
+        cout << "[INFO] Pemesanan " << p->info.name
+             << " melebihi jumlah stok yang tersedia, stok yang tersedia: "
+             << M->info.stock << endl;
+
+        return;
+    }
+
+    if (p->info.balance < totalHarga)
+    {
+        cout << "[INFO] Saldo Pengguna " << p->info.name
+             << " tidak mencukupi, jumlah saldo anda: "
+             << p->info.balance << endl;
+        return;
+    }
+
+    p->info.balance -= totalHarga;
+    M->info.stock -= quantity;
+    if (p->info.vip)
+    {
+        insertFirstCustomer(M, p);
     }
     else
     {
-        cout << "[INFO] Saldo Pengguna " << p->info.name << " tidak mencukupi, jumlah saldo anda: " << p->info.balance << endl;
+        insertLastCustomer(M, p);
     }
+
+    cout << "[SUKSES] Pesanan berhasil dibuat!" << endl;
 }
 
 /*
@@ -118,7 +138,7 @@ void showVipCustomer(listMenu &M)
         {
             if (q->info.vip == true)
             {
-                cout << "Customer VIP: " << q->info.name << " (ID: " << q->info.id << ", Balance: " << q->info.balance << ")" << endl;
+                cout << "[INFO] Customer VIP: " << q->info.id << " | " << q->info.name << endl;
             }
             q = q->next;
         }
@@ -127,71 +147,39 @@ void showVipCustomer(listMenu &M)
 }
 
 /*
-    I.S : List menu M terdefinisi dan namaMenu terdefinisi.
-    F.S : Mengembalikan pointer ke elemen menu yang memiliki nama sesuai namaMenu.
-          Jika tidak ditemukan, mengembalikan nullptr.
-*/
-adrMenu searchMenu(listMenu &M, string namaMenu)
-{
-
-    adrMenu temp = M.first;
-    while (temp != nullptr)
-    {
-        if (temp->info.name == namaMenu)
-        {
-            return temp;
-        }
-        temp = temp->next;
-    }
-    return nullptr;
-};
-
-/*
     I.S : List menu M terdefinisi dan idCustomer terdefinisi.
     F.S : Menampilkan daftar pesanan dari customer dengan ID sesuai idCustomer,
           menunjukkan nama menu dan total pemesanan untuk setiap menu.
 */
-void showListPesanan(listMenu &M, string idCustomer)
+
+void showListPesanan(listMenu M, string idCustomer)
 {
     adrMenu temp = M.first;
     cout << "===== Daftar Pesanan =====" << endl;
-
-    while (temp != nullptr)
+    if (temp == nullptr)
     {
-        int total = countPesanan(temp, idCustomer);
-
-        if (total > 0)
+        cout << "[INFO] Pesanan kosong!" << endl;
+    }
+    else
+    {
+        while (temp != nullptr)
         {
-            cout << temp->info.id << " | "
-                 << temp->info.name
-                 << " | Total: " << total << endl;
+            adrCustomer tempC = temp->firstCustomer;
+            while (tempC != nullptr)
+            {
+                if (tempC->info.id == idCustomer)
+                {
+                    cout << temp->info.id << " | "
+                         << temp->info.name
+                         << " | Total: " << tempC->info.quantity << endl;
+                }
+                tempC = tempC->next;
+            }
+            temp = temp->next;
         }
-
-        temp = temp->next;
     }
 
     cout << "-----------------------------" << endl;
-}
-
-/*
-    I.S : menu terdefinisi dan idCustomer terdefinisi.
-    F.S : Mengembalikan jumlah total pesanan (jumlah elemen customer dengan ID tertentu)
-          dalam list customer menu.
-*/
-int countPesanan(adrMenu menu, string idCustomer)
-{
-    int totalMenu = 0;
-    adrCustomer tempC = menu->firstCustomer;
-
-    while (tempC != nullptr)
-    {
-        if (tempC->info.id == idCustomer)
-        {
-            totalMenu++;
-        }
-        tempC = tempC->next;
-    }
-    return totalMenu;
 }
 
 /*
@@ -214,20 +202,37 @@ void addBalance(infotypeC &customer)
           Jika tidak VIP → dimasukkan sebagai elemen terakhir.
           Transaksi diproses untuk customer tersebut.
 */
-void orderMenu(listMenu &M, string namaMenu, infotypeC &customer, int quantity)
+void orderMenu(listMenu &M, string namaMenu, infotypeC &customer)
 {
     int i;
     adrMenu temp = searchMenu(M, namaMenu);
     adrCustomer x;
 
-    if (customer.balance > temp->info.price * quantity)
+    if (customer.balance > temp->info.price * customer.quantity)
     {
-        customer.balance = customer.balance - temp->info.price * quantity;
+        customer.balance = customer.balance - temp->info.price * customer.quantity;
     }
-    for (i = 0; i < quantity; i++)
+
+    x = createElementCustomer(customer);
+    transaction(temp, x, customer.quantity);
+}
+
+/*
+    I.S : List customer M terdefinisi (mungkin kosong atau berisi).
+    F.S : Menampilkan semua customer dalam list M ke output dengan format yang terstruktur.
+          Struktur list tidak berubah setelah pemanggilan fungsi ini.
+*/
+void viewAllCustomer(listMenu M)
+{
+    adrMenu temp = M.first;
+    while (temp != nullptr)
     {
-        x = createElementCustomer(customer);
-        transaction(temp, x, i);
+        adrCustomer tempC = temp->firstCustomer;
+        while (tempC != nullptr)
+        {
+            showListPesanan(M, tempC->info.id);
+            tempC = tempC->next;
+        }
+        temp = temp->next;
     }
-    deleteWhenStockZero(M);
 }

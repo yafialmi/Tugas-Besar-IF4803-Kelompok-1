@@ -37,15 +37,15 @@ void insertAfterMenu(listMenu &L, adrMenu M, adrMenu Mrec);
 void deleteFirstMenu(listMenu &L, adrMenu &p);
 void deleteLastMenu(listMenu &L, adrMenu &p);
 void deleteAfterMenu(listMenu &L, adrMenu &p, adrMenu &Mrec);
-adrMenu findElementMenu(listMenu &L, infotypeP x);
 void viewMenu(listMenu L);
 adrMenu allocate(infotypeP x);
 void reduceStock(listMenu &L, string id);
+adrMenu searchMenu(listMenu M, string namaMenu);
 void tambahMenu(listMenu &L, adrMenu M);
 void insertDummyDataMenu1(listMenu &L);
 void insertDummyDataMenu2(listMenu &L);
 void insertDummyDataMenu3(listMenu &L);
-void deleteWhenStockZero(listMenu &L);
+void deleteMenuIfStockZero(listMenu &L);
 adrMenu checkStockMenu(listMenu &L);
 adrMenu searchLast(listMenu &L);
 

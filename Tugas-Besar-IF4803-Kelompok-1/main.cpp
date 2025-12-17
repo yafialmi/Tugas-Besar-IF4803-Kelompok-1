@@ -90,17 +90,19 @@ int pelanggan(listMenu &darren_almi)
             cout << "Masukkan nama menu yang ingin anda pesan: ";
             cin >> menuYangDipesan;
             cout << "Jumlah yang ingin dipesan: ";
-            cin >> quantity;
-            orderMenu(darren_almi, menuYangDipesan, infoPelanggan, quantity);
+            cin >> infoPelanggan.quantity;
+            orderMenu(darren_almi, menuYangDipesan, infoPelanggan);
+            deleteMenuIfStockZero(darren_almi);
             pelanggan(darren_almi);
         }
         else
         {
-            cout << "Masukkan nama menu yang ingin anda pesan: " << endl;
+            cout << "Masukkan nama menu yang ingin anda pesan: " ;
             cin >> menuYangDipesan;
             cout << "Jumlah yang ingin dipesan: ";
-            cin >> quantity;
-            orderMenu(darren_almi, menuYangDipesan, infoPelanggan, quantity);
+            cin >> infoPelanggan.quantity;
+            orderMenu(darren_almi, menuYangDipesan, infoPelanggan);
+            deleteMenuIfStockZero(darren_almi);
             pelanggan(darren_almi);
         }
         break;

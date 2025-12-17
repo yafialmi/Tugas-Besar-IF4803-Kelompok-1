@@ -42,7 +42,7 @@ void deleteAfterCustomer(adrMenu &M, adrCustomer &p, adrCustomer prec){
     F.S : Mengembalikan pointer ke elemen customer dengan data yang sesuai dengan x (berdasarkan field yang relevan).
           Jika tidak ditemukan, mengembalikan nullptr.
 */
-adrCustomer findElementCustomer(adrMenu &M, string id){
+adrCustomer findElementCustomer(adrMenu M, string id){
     adrCustomer q = M->firstCustomer;
     while (q->info.id != id && q->next != nullptr){
         q = q->next;
@@ -51,20 +51,5 @@ adrCustomer findElementCustomer(adrMenu &M, string id){
         return q;
     }else{
         return nullptr;
-    }
-}
-
-/*
-    I.S : List customer M terdefinisi (mungkin kosong atau berisi).
-    F.S : Menampilkan semua customer dalam list M ke output dengan format yang terstruktur.
-          Struktur list tidak berubah setelah pemanggilan fungsi ini.
-*/
-void viewCustomer(adrMenu &M){
-    adrCustomer q = M->firstCustomer;
-    cout << "Customer dari menu " << M->info.name << " : (ID, Name, Balance, VIP)" << endl;
-    cout << q->info.id << " " << q->info.name << " " << q->info.balance << " " << q->info.vip << endl;
-    while (q->next != nullptr){
-        q = q->next;
-        cout << q->info.id << " " << q->info.name << " " << q->info.balance << " " << q->info.vip << endl;
     }
 }

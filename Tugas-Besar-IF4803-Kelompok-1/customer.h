@@ -14,9 +14,10 @@ struct listMenu;
 
 struct customer
 {
-    string id;
     int balance;
+    int quantity;
     bool vip = false;
+    string id;
     string name;
 };
 
@@ -36,11 +37,11 @@ void insertAfterCustomer(adrMenu &M, adrCustomer p, adrCustomer prec);
 void deleteFirstCustomer(adrMenu &M, adrCustomer &p);
 void deleteLastCustomer(adrMenu &M, adrCustomer &p);
 void deleteAfterCustomer(adrMenu &M, adrCustomer &p, adrCustomer prec);
-adrCustomer findElementCustomer(adrMenu M, infotypeC x);
+adrCustomer findElementCustomer(adrMenu M, string id);
 void viewCustomer(adrMenu &M);
-void showListPesanan(listMenu &M, string idCustomer);
+void showListPesanan(listMenu M, string idCustomer);
 void addBalance(infotypeC &customer);
 int countPesanan(adrMenu menu, string idCustomer);
-void orderMenu(listMenu &M, string namaMenu, infotypeC &customer, int quantity);
+void orderMenu(listMenu &M, string namaMenu, infotypeC &customer);
 
 #endif // CUSTOMER_H_INCLUDED
