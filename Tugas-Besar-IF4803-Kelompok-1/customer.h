@@ -45,5 +45,6 @@ void addBalance(infotypeC &customer);
 int countPesanan(adrMenu menu, string idCustomer);
 void orderMenu(listMenu &M, string namaMenu, infotypeC &customer);
 void showVipCustomer(listMenu &M);
+adrCustomer findCustomerInMenu(adrMenu M, string namaCustomer);
 
 #endif // CUSTOMER_H_INCLUDED

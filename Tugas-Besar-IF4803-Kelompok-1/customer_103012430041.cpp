@@ -19,6 +19,8 @@ void transaction(adrMenu &M, adrCustomer &p, infotypeC &customer)
 {
     int quantity = customer.quantity;
     int totalHarga = M->info.price * quantity;
+    bool sudahAda = false;
+    adrCustomer temp = M->firstCustomer;
 
     if (quantity <= 0)
     {
@@ -31,28 +33,45 @@ void transaction(adrMenu &M, adrCustomer &p, infotypeC &customer)
         cout << "[INFO] Pemesanan " << p->info.name
              << " melebihi jumlah stok yang tersedia, stok yang tersedia: "
              << M->info.stock << endl;
-
         return;
     }
 
-    if (p->info.balance < totalHarga){
+    if (p->info.balance < totalHarga)
+    {
         cout << "[INFO] Saldo Pengguna " << p->info.name
              << " tidak mencukupi, jumlah saldo anda: "
              << p->info.balance << endl;
         return;
     }
-    customer.balance -= totalHarga;
+
     p->info.balance -= totalHarga;
     M->info.stock -= quantity;
-    if (p->info.vip)
+
+    while (temp != nullptr)
     {
-        insertFirstCustomer(M, p);
+        if (temp == p)
+        {
+            sudahAda = true;
+            break;
+        }
+        temp = temp->next;
+    }
+
+    if (sudahAda)
+    {
+        p->info.quantity += quantity;
+        cout << "[UPDATE] Pesanan berhasil diperbarui!" << endl;
     }
     else
     {
-        insertLastCustomer(M, p);
+        p->info.quantity = quantity;
+        if (p->info.vip)
+            insertFirstCustomer(M, p);
+        else
+            insertLastCustomer(M, p);
+
+        cout << "[SUKSES] Pesanan berhasil dibuat!" << endl;
     }
-    cout << "[SUKSES] Pesanan berhasil dibuat!" << endl;
 }
 
 /*
@@ -203,9 +222,31 @@ void addBalance(infotypeC &customer)
 */
 void orderMenu(listMenu &M, string namaMenu, infotypeC &customer)
 {
-    int i;
     adrMenu temp = searchMenu(M, namaMenu);
-    adrCustomer x;
-    x = createElementCustomer(customer);
-    transaction(temp, x, customer);
+
+    adrCustomer existing = findCustomerInMenu(temp, customer.name);
+
+    if (existing != nullptr)
+    {
+        infotypeC tempCustomer = existing->info;
+        tempCustomer.quantity = customer.quantity;
+        transaction(temp, existing, tempCustomer);
+    }
+    else
+    {
+        adrCustomer x = createElementCustomer(customer);
+        transaction(temp, x, customer);
+    }
+}
+
+adrCustomer findCustomerInMenu(adrMenu M, string namaCustomer)
+{
+    adrCustomer p = M->firstCustomer;
+    while (p != nullptr)
+    {
+        if (p->info.name == namaCustomer)
+            return p;
+        p = p->next;
+    }
+    return nullptr;
 }
