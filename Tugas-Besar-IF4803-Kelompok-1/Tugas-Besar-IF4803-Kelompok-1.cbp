@@ -39,8 +39,6 @@
 		<Unit filename="menu.h" />
 		<Unit filename="menu_103012400011.cpp" />
 		<Unit filename="menu_103012430041.cpp" />
-		<Unit filename="relation.h" />
-		<Unit filename="sources.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

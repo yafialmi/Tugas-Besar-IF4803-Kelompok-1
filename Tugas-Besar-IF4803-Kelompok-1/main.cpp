@@ -8,15 +8,21 @@ infotypeC infoPelanggan;
 
 int pelanggan(listMenu &darren_almi);
 int admin(listMenu &darren_almi);
+int menuUtama(listMenu &darren_almi);
 
 int main()
 {
     listMenu darren_almi;
-    string choice;
     createListMenu(darren_almi);
     insertDummyDataMenu1(darren_almi);
     insertDummyDataMenu2(darren_almi);
     insertDummyDataMenu3(darren_almi);
+    menuUtama(darren_almi);
+    return 0;
+}
+
+int menuUtama(listMenu &darren_almi){
+    string choice;
     cout << "===== Pilih Mode =====" << endl;
     cout << "1. Pelanggan (Studi Kasus)" << endl;
     cout << "2. Admin" << endl;
@@ -34,9 +40,8 @@ int main()
     else
     {
         cout << "\033[2J\033[1;1H";
-        main();
+        menuUtama(darren_almi);
     }
-    return 0;
 }
 
 int pelanggan(listMenu &darren_almi)
@@ -148,7 +153,7 @@ int pelanggan(listMenu &darren_almi)
     break;
     case 0:
         cout << "\033[2J\033[1;1H";
-        main();
+        menuUtama(darren_almi);
         break;
     default:
         pelanggan(darren_almi);
@@ -162,12 +167,13 @@ int admin(listMenu &darren_almi)
     cout << "===== Mode Admin =====" << endl;
     cout << "1. Tambah Menu" << endl;
     cout << "2. Tambah Stock Menu" << endl;
-    cout << "3. Lihat customer dari sebuah menu" << endl;
-    cout << "4. Lihat customer VIP" << endl;
+    cout << "3. Lihat semua pesanan" << endl;
+    cout << "4. Lihat customer dari sebuah menu" << endl;
+    cout << "5. Lihat customer VIP" << endl;
+    cout << "9. Lihat daftar menu saat ini" << endl;
     cout << "0. Kembali ke menu awal" << endl;
     cin >> choice;
-    if (choice == "1")
-    {
+    if (choice == "1"){
         infotypeP info;
         cout << "ID: ";
         cin >> info.id;
@@ -179,11 +185,39 @@ int admin(listMenu &darren_almi)
         cin >> info.stock;
         tambahMenu(darren_almi, allocate(info));
         admin(darren_almi);
-    }
-    else if (choice == "0")
-    {
+    }else if (choice == "2"){
+        string isian;
+        int isianstock;
+        cout << "ID menu: ";
+        cin >> isian;
+        cout << "Tambah stock sebanyak: ";
+        cin >> isianstock;
+        increaseStock(darren_almi, isian, isianstock);
+        admin(darren_almi);
+    }else if(choice == "4"){
+        string isian;
+        cout << "ID Menu: ";
+        cin >> isian;
+        adrMenu menunya;
+        menunya = findElementMenu(darren_almi, isian);
+        if (menunya == nullptr){
+            cout << "Menu tidak ditemukan" << endl;
+        }else{
+            viewCustomer(menunya);
+        }
+        admin(darren_almi);
+    }else if(choice == "3"){
+        viewAllOrders(darren_almi);
+        admin(darren_almi);
+    }else if(choice == "5"){
+        showVipCustomer(darren_almi);
+        admin(darren_almi);
+    }else if (choice == "9"){
+        viewMenu(darren_almi);
+        admin(darren_almi);
+    }else if (choice == "0"){
         cout << "\033[2J\033[1;1H";
-        main();
+        menuUtama(darren_almi);
     }
     return 0;
 }

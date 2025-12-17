@@ -15,8 +15,9 @@ bool checkEmptyCustomer(adrMenu M)
     F.S : Jika saldo cukup → saldo dikurangi price*quantity dan stok menu berkurang 1.
           Jika saldo tidak cukup → menampilkan pesan saldo tidak mencukupi.
 */
-void transaction(adrMenu &M, adrCustomer &p, int quantity)
+void transaction(adrMenu &M, adrCustomer &p, infotypeC &customer)
 {
+    int quantity = customer.quantity;
     int totalHarga = M->info.price * quantity;
 
     if (quantity <= 0)
@@ -34,14 +35,13 @@ void transaction(adrMenu &M, adrCustomer &p, int quantity)
         return;
     }
 
-    if (p->info.balance < totalHarga)
-    {
+    if (p->info.balance < totalHarga){
         cout << "[INFO] Saldo Pengguna " << p->info.name
              << " tidak mencukupi, jumlah saldo anda: "
              << p->info.balance << endl;
         return;
     }
-
+    customer.balance -= totalHarga;
     p->info.balance -= totalHarga;
     M->info.stock -= quantity;
     if (p->info.vip)
@@ -52,7 +52,6 @@ void transaction(adrMenu &M, adrCustomer &p, int quantity)
     {
         insertLastCustomer(M, p);
     }
-
     cout << "[SUKSES] Pesanan berhasil dibuat!" << endl;
 }
 
@@ -207,32 +206,6 @@ void orderMenu(listMenu &M, string namaMenu, infotypeC &customer)
     int i;
     adrMenu temp = searchMenu(M, namaMenu);
     adrCustomer x;
-
-    if (customer.balance > temp->info.price * customer.quantity)
-    {
-        customer.balance = customer.balance - temp->info.price * customer.quantity;
-    }
-
     x = createElementCustomer(customer);
-    transaction(temp, x, customer.quantity);
-}
-
-/*
-    I.S : List customer M terdefinisi (mungkin kosong atau berisi).
-    F.S : Menampilkan semua customer dalam list M ke output dengan format yang terstruktur.
-          Struktur list tidak berubah setelah pemanggilan fungsi ini.
-*/
-void viewAllCustomer(listMenu M)
-{
-    adrMenu temp = M.first;
-    while (temp != nullptr)
-    {
-        adrCustomer tempC = temp->firstCustomer;
-        while (tempC != nullptr)
-        {
-            showListPesanan(M, tempC->info.id);
-            tempC = tempC->next;
-        }
-        temp = temp->next;
-    }
+    transaction(temp, x, customer);
 }

@@ -39,9 +39,11 @@ void deleteLastCustomer(adrMenu &M, adrCustomer &p);
 void deleteAfterCustomer(adrMenu &M, adrCustomer &p, adrCustomer prec);
 adrCustomer findElementCustomer(adrMenu M, string id);
 void viewCustomer(adrMenu &M);
+void viewAllOrders(listMenu M);
 void showListPesanan(listMenu M, string idCustomer);
 void addBalance(infotypeC &customer);
 int countPesanan(adrMenu menu, string idCustomer);
 void orderMenu(listMenu &M, string namaMenu, infotypeC &customer);
+void showVipCustomer(listMenu &M);
 
 #endif // CUSTOMER_H_INCLUDED
